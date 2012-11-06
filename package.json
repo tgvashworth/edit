@@ -1,5 +1,7 @@
 {
   "name": "edit",
-  "author": "Tom Ashworth",
-  "version": "0.0.1"
+  "author": {
+    "name": "Tom Ashworth"
+  },
+  "version": "0.0.2"
 }
