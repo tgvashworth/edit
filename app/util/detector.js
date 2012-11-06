@@ -2,7 +2,7 @@
 // Detector
 // ====================================
 
-angular.module('detector', [])
+angular.module('util', [])
 .factory('detector', function () {
 
   // Regexps for each language. There should really be an

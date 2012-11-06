@@ -7,23 +7,22 @@
   <div class="panes">
     <div ng-controller="PaneController">
       <div class="pane">
-        <ace mode="{{mode}}" ng-model="code" ng-change="change()"></ace>
+        <ace mode="{{mode}}" ng-model="source" ng-change="change()"></ace>
       </div>
     </div>
   </div>
 
-  <div class="preview">
-    <iframe class="active" frameborder="0"></iframe>
-    <iframe class="inactive" frameborder="0"></iframe>
-  </div>
+  <div class="preview" ng-controller="PreviewController"></div>
   
 </div>
 
+<script>Element.prototype.prependChild = function(child) { this.insertBefore(child, this.firstChild); };</script>
 <script src="lib/ace-src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="lib/angular.js"></script>
 <!-- Janky? Correct? -->
 <script src="app/directive/ace.js"></script>
 <script src="app/util/detector.js"></script>
+<script src="app/util/pubsub.js"></script>
 <script src="app/app.js"></script>
 
 </html>

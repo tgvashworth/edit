@@ -17,8 +17,6 @@ angular.module('ace', [])
       editor.getSession().setUseSoftTabs(true);
       editor.getSession().setTabSize(2);
 
-      console.log(editor.getSession());
-
       // Angular stuff
       scope.editor = editor;
       // Watch 'mode' and update the highlighting
