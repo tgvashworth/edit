@@ -30,6 +30,7 @@ angular.module('util', [])
   // If these are found on the first line they force the language
   var declarations = [
     { exp: /\#\!markdown/i, lang: 'markdown' },
+    { exp: /<!doctype/i, lang: 'html' },
     { exp: /\#\!html/i, lang: 'html' },
     { exp: /\#\!css/i, lang: 'css' },
     { exp: /\#\!javascript/i, lang: 'javascript' }
