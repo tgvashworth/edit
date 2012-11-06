@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="edit">
+
+<style>
+  ace, .ace-editor { 
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+</style>
+
+<div ng-controller="PaneController">
+  <div id="pane">
+    <ace mode="{{mode}}" ng-model="code" ng-change="detect()"></ace>
+  </div>
+</div>
+
+<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/angular.js"></script>
+<script src="app/app.js"></script>
+
+</html>
