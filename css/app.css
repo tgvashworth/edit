@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: white;
+  background: black;
+}
+
+.container {
+  overflow: hidden;
+}
+
+.panes,
+.preview {
+  float: left;
+  position: relative;
+  width: 50vw;
+  height:  100vh;
+}
+
+.ace-editor,
+.preview iframe { 
+  display: block;
+  width: 100%;
+  height: 100%;
+}

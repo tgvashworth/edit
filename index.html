@@ -1,25 +1,29 @@
 <!doctype html>
 <html ng-app="edit">
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/app.css">
 
-<style>
-  ace, .ace-editor { 
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-</style>
-
-<div ng-controller="PaneController">
-  <div id="pane">
-    <ace mode="{{mode}}" ng-model="code" ng-change="detect()"></ace>
+<div class="container">
+  <div class="panes">
+    <div ng-controller="PaneController">
+      <div class="pane">
+        <ace mode="{{mode}}" ng-model="code" ng-change="change()"></ace>
+      </div>
+    </div>
   </div>
+
+  <div class="preview">
+    <iframe class="active" frameborder="0"></iframe>
+    <iframe class="inactive" frameborder="0"></iframe>
+  </div>
+  
 </div>
 
 <script src="lib/ace-src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="lib/angular.js"></script>
+<!-- Janky? Correct? -->
+<script src="app/directive/ace.js"></script>
+<script src="app/util/detector.js"></script>
 <script src="app/app.js"></script>
 
 </html>
