@@ -16,6 +16,7 @@ angular.module('ace', [])
       editor.setTheme("ace/theme/github");
       editor.getSession().setUseSoftTabs(true);
       editor.getSession().setTabSize(2);
+      editor.setShowPrintMargin(false);
 
       // Angular stuff
       scope.editor = editor;
