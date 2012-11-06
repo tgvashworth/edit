@@ -56,9 +56,8 @@ angular.module('detector', [])
     // CSS
     { exp: /[\s\S]*\{[\s\S]*/i, lang: 'css' },
     { exp: /\{[\s\S]*:[\s\S]*\;[\s\S]*\}/i, lang: 'css' },
-    { exp: /[#][\s\S]+\{*/i, lang: 'css' },
     { exp: /:(hover|active)/i, lang: 'css' },
-    { exp: /([#|\.]?)([\w|:|\s|\.]+)/i, lang: 'css' },
+    { exp: /([#|\.]{1,})([\w|:|\s|\.]+)/i, lang: 'css' },
     // JS
     { exp: /document|window|function/i, lang: 'javascript' },
     { exp: /\(function \(\)/i, lang: 'javascript' },
