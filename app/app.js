@@ -6,7 +6,7 @@ angular.module('pane', ['util', 'ace']);
 
 var PaneController = function ($scope, detector, pubsub) {
   $scope.mode = 'html';
-  $scope.source = '<!doctype html>';
+  $scope.source = '<!doctype html>\n<meta charset=utf-8>\n<title></title>';
   $scope.change = function () {
     pubsub.emit('pane:source:change');
   };

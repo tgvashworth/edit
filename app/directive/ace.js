@@ -31,9 +31,9 @@ angular.module('ace', [])
           // Prevent the view from being updated again when we update it
           var updating = false;
           editor.getSession().on('change', function () {
-            if( updating ) { updating = false; return; }
+            if( scope.$$phase || updating ) { updating = false; return; }
             scope.$apply(function () {
-              ngModel.$setViewValue(editor.getValue());
+              ngModel.$setViewValue(editor.getSession().getValue());
             });
           });
           ngModel.$render = function() {
