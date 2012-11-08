@@ -25,11 +25,6 @@ body {
   z-index: 1;
 }
 
-.panes {
-  height: 90vh;
-  top: 5vh;
-}
-
 .ace-editor,
 .preview iframe { 
   display: block;

@@ -13,7 +13,7 @@ angular.module('ace', [])
 
       // Setup Ace
       var editor = ace.edit(element.children()[0]);
-      editor.setTheme("ace/theme/github");
+      editor.setTheme("ace/theme/merbivore");
       editor.getSession().setUseSoftTabs(true);
       editor.getSession().setTabSize(2);
       editor.setShowPrintMargin(false);
@@ -27,11 +27,20 @@ angular.module('ace', [])
       // If a model is set on the element, update it's value
       // when Ace reports a change
       if( ngModel ) {
-        editor.getSession().on('change', function () {
-          scope.$apply(function () {
-            ngModel.$setViewValue(editor.getValue());
+        (function () {
+          // Prevent the view from being updated again when we update it
+          var updating = false;
+          editor.getSession().on('change', function () {
+            if( updating ) { updating = false; return; }
+            scope.$apply(function () {
+              ngModel.$setViewValue(editor.getValue());
+            });
           });
-        });
+          ngModel.$render = function() {
+            updating = true;
+            editor.getSession().setValue(ngModel.$viewValue || '');
+          };
+        }());
       }
 
     }
