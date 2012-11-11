@@ -6,7 +6,16 @@ angular.module('pane', ['util', 'pubsub', 'ace']);
 
 var PaneController = function ($scope, pubsub, detector) {
   $scope.mode = 'html';
-  $scope.source = '<!doctype html>\n<meta charset=utf-8>\n<title></title>';
+
+  pubsub.on('save:source:response', function (source) {
+    if( source ) {
+      $scope.source = source;
+    } else {
+      $scope.source = '<!doctype html>\n<meta charset=utf-8>\n<title></title>';
+    }
+  });
+  pubsub.emit('save:source:request');
+
   $scope.change = function () {
     pubsub.emit('pane:source:change');
   };
@@ -27,7 +36,7 @@ var PaneController = function ($scope, pubsub, detector) {
 // Preview
 // ====================================
 
-angular.module('edit', ['util', 'pubsub', 'pane']);
+angular.module('edit', ['util', 'pubsub', 'pane', 'save']);
 
 var PreviewController = function ($scope, pubsub) {
   $scope.timeout = null;
