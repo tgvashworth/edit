@@ -4,7 +4,7 @@
 
 angular.module('pane', ['util', 'ace']);
 
-var PaneController = function ($scope, detector, pubsub) {
+var PaneController = function ($scope, pubsub, detector) {
   $scope.mode = 'html';
   $scope.source = '<!doctype html>\n<meta charset=utf-8>\n<title></title>';
   $scope.change = function () {

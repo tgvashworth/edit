@@ -2,7 +2,7 @@
 // Detector
 // ====================================
 
-angular.module('util', [])
+angular.module('util')
 .factory('detector', function () {
 
   // Regexps for each language. There should really be an
@@ -42,7 +42,7 @@ angular.module('util', [])
     var vote = {}, max = 0, lang = '';
 
     // Only use the first 5 lines
-    first_line = test.split('\n').slice(0,1).join('\n');
+    var first_line = test.split('\n').slice(0,1).join('\n');
 
     var declaration = declarations.reduce(function (prev, matcher) {
       if( first_line.match(matcher.exp) ) {
@@ -54,7 +54,7 @@ angular.module('util', [])
     if( declaration ) return declaration;
 
     // Only use the first 5 lines
-    first_5_lines = test.split('\n').slice(0,5).join('\n');
+    var first_5_lines = test.split('\n').slice(0,5).join('\n');
 
     regexp.forEach(function (matcher) {
       if( first_5_lines.match(matcher.exp) ) {

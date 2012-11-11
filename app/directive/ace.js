@@ -3,7 +3,7 @@
 // ====================================
 
 angular.module('ace', [])
-.directive('ace', function ($window) {
+.directive('ace', ['$window', function ($window) {
   return {
     restrict: 'E',
     template: '<div class="ace-editor"></div>',
@@ -45,4 +45,4 @@ angular.module('ace', [])
 
     }
   };
-});
+}]);
