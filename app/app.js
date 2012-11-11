@@ -99,4 +99,7 @@ var PreviewController = function ($scope, pubsub) {
     }
     $scope.timeout = setTimeout($scope.request_source.bind(this), 200);
   });
+
+  // Let's get movin'
+  $scope.request_source();
 };
