@@ -2,7 +2,7 @@
 // Pane
 // ====================================
 
-angular.module('pane', ['util', 'ace']);
+angular.module('pane', ['util', 'pubsub', 'ace']);
 
 var PaneController = function ($scope, pubsub, detector) {
   $scope.mode = 'html';
@@ -27,7 +27,7 @@ var PaneController = function ($scope, pubsub, detector) {
 // Preview
 // ====================================
 
-angular.module('edit', ['util', 'pane']);
+angular.module('edit', ['util', 'pubsub', 'pane']);
 
 var PreviewController = function ($scope, pubsub) {
   $scope.timeout = null;

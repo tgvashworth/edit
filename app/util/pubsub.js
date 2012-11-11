@@ -2,7 +2,7 @@
 // pubsub
 // ====================================
 
-angular.module('util')
+angular.module('pubsub', [])
 .factory('pubsub', function () {
 
     var pubsub = {};
