@@ -2,9 +2,9 @@
 // Pane
 // ====================================
 
-angular.module('pane', ['util', 'pubsub', 'ace']);
+angular.module('pane', ['util', 'pubsub', 'ace', 'processor']);
 
-var PaneController = function ($scope, pubsub, detector) {
+var PaneController = function ($scope, pubsub, detector, processor) {
   $scope.mode = 'html';
 
   pubsub.on('save:source:response', function (source) {
@@ -28,7 +28,15 @@ var PaneController = function ($scope, pubsub, detector) {
   });
 
   pubsub.on('pane:source:request', function () {
-    pubsub.emit('pane:source:response', $scope.source);
+    pubsub.emit('pane:source:raw', $scope.source);
+    // Process raw source if there's a processor for the current mode
+    if( processor[$scope.mode] ) {
+      processor[$scope.mode]($scope.source, function (processed) {
+        pubsub.emit('pane:source:response', processed);
+      });
+    } else {
+      pubsub.emit('pane:source:response', $scope.source);
+    }
   });
 };
 
@@ -61,14 +69,11 @@ var PreviewController = function ($scope, pubsub) {
   pubsub.on('pane:fresh:ready', function (source) {
     var fresh = $scope.fresh;
     try {
-
       fresh.window = fresh.elem.contentWindow;
       fresh.document = fresh.window.document;
-
       fresh.document.open();
       fresh.document.write(source);
       fresh.document.close();
-
       pubsub.emit('pane:fresh:done');
 
     } catch(e) {

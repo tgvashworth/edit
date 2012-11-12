@@ -11,6 +11,6 @@ angular.module('save', ['pubsub'])
 
   // Listen for save requests and respond to
   pubsub.on('save:source:request', function () {
-    pubsub.emit('save:source:response', localStorage.getItem('edit:save:temp'));
+    pubsub.emit('save:source:raw', localStorage.getItem('edit:save:temp'));
   });
 }]);
