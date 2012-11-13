@@ -23,17 +23,33 @@ angular.module('processor.context', ['pubsub'])
   };
 });
 
-angular.module('processor.processors', ['processor.context', 'pubsub'])
-.factory('javascript', function ($window, context, pubsub) {
+angular.module('processor.processors', ['processor.context', 'template'])
+.factory('javascript', function ($window, context, template) {
   return function (source, cb) {
     context.create(function (temp) {
+      var rendered_source = source;
+
+      // Overwrite the consoles in the new context to redirect logs
       temp.window._console = temp.window.console;
       temp.window.console = $window.console;
+
+      // Render source to template
       try {
-        temp.window.eval(source);
+        rendered_source = template.render(template.of.javascript, {
+          source: rendered_source
+        });
+      } catch (e) {
+        console.log(e);
+      }
+
+      // Attempt to run the rendered source in the new context
+      try {
+        temp.window.eval(rendered_source);
       } catch (e) {
         console.error(e);
       }
+
+      // Send the (original) source back, post run
       cb('<pre>' + source + '</pre>');
     });
   };
