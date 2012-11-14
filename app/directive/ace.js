@@ -18,9 +18,9 @@ angular.module('ace', [])
       editor.getSession().setTabSize(2);
       editor.setShowPrintMargin(false);
 
-      // Angular stuff
-      scope.editor = editor;
-      // Watch 'mode' and update the highlighting
+      // Angularize
+      
+      // Watch 'mode' and update the mode
       attrs.$observe('mode', function (newMode) {
         editor.getSession().setMode("ace/mode/" + newMode);
       });

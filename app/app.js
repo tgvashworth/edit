@@ -2,61 +2,51 @@
 // Pane
 // ====================================
 
-angular.module('pane', ['util', 'pubsub', 'ace', 'processor']);
-
-var PaneController = function ($scope, pubsub, detector, processor) {
+angular.module('pane', ['util', 'pubsub', 'ace'])
+.controller('PaneController', function ($scope, pubsub) {
+  $scope.timeout = null;
   $scope.mode = 'html';
+  $scope.source = '';
 
-  pubsub.on('save:source:response', function (source) {
-    if( source ) {
-      $scope.source = source;
-    } else {
-      $scope.source = '<!doctype html>\n<meta charset=utf-8>\n<title></title>';
-    }
-  });
-  pubsub.emit('save:source:request');
-
-  $scope.change = function () {
-    pubsub.emit('pane:source:change');
+  // When the source has changed (after a sufficient wait), emit it
+  $scope.ready = function () {
+    pubsub.emit('pane:source:change', $scope.source);
   };
 
-  pubsub.on('pane:source:change', function () {
-    var result = detector($scope.source);
-    if( result.length > 0 ) {
-      $scope.mode = result;
+  // Let the system know if the source changes
+  $scope.change = function () {
+    if( $scope.timeout ) {
+      clearTimeout($scope.timeout);
     }
-  });
+    $scope.timeout = setTimeout($scope.ready.bind(this), 200);
+  };
 
+  // Respond to requests for source code
   pubsub.on('pane:source:request', function () {
-    pubsub.emit('pane:source:raw', $scope.source);
-    // Process raw source if there's a processor for the current mode
-    if( processor[$scope.mode] ) {
-      processor[$scope.mode]($scope.source, function (processed) {
-        pubsub.emit('pane:source:response', processed);
-      });
-    } else {
-      pubsub.emit('pane:source:response', $scope.source);
-    }
+    pubsub.emit('pane:source:response', $scope.source);
   });
-};
 
+  // Update source code when we get a resonse from the save module
+  pubsub.on('save:source:response', function (source) {
+    $scope.source = source;
+    $scope.change();
+  });
+
+  // Ask for source from the save module
+  pubsub.emit('save:source:request');
+
+});
+ 
 // ====================================
 // Preview
 // ====================================
 
-angular.module('edit', ['util', 'pubsub', 'pane', 'save']);
-
-var PreviewController = function ($scope, pubsub) {
-  $scope.timeout = null;
+angular.module('edit', ['util', 'pubsub', 'pane', 'save'])
+.controller('PreviewController', function ($scope, pubsub) {
   $scope.root = document.querySelector('.preview');
 
-  $scope.request_source = function () {
-    $scope.timeout = null;
-    pubsub.emit('pane:source:request');
-  };
-
-  // Prepare a fresh frame
-  pubsub.on('pane:source:response', function (source) {
+  // Listen out for updated source, and prepare a fresh frame
+  pubsub.on('pane:source:change', function (source) {
     var fresh = {};
     fresh.elem = document.createElement('iframe');
     fresh.elem.setAttribute('frameborder', '0');
@@ -97,14 +87,4 @@ var PreviewController = function ($scope, pubsub) {
     $scope.stale.elem.classList.remove('active');
     setTimeout($scope.root.removeChild.bind($scope.root, $scope.stale.elem), 200);
   });
-
-  pubsub.on('pane:source:change', function () {
-    if( $scope.timeout ) {
-      clearTimeout($scope.timeout);
-    }
-    $scope.timeout = setTimeout($scope.request_source.bind(this), 200);
-  });
-
-  // Let's get movin'
-  $scope.request_source();
-};
+});
