@@ -5,12 +5,8 @@
 <link rel="stylesheet" href="css/app.css">
 
 <div class="container">
-  <div class="panes">
-    <div ng-controller="PaneController">
-      <div class="pane">
-        <ace mode="{{mode}}" ng-model="source" ng-change="change()"></ace>
-      </div>
-    </div>
+  <div class="pane" ng-controller="PaneController">
+    <ace mode="{{mode}}" ng-model="source" ng-change="change()"></ace>
   </div>
   <div class="preview" ng-controller="PreviewController"></div>
 </div>

@@ -1,28 +1,23 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   color: white;
   background: black;
 }
 
-.container {
-  overflow: hidden;
-}
-
-.panes,
+.pane,
 .preview {
-  float: left;
-  position: relative;
-  width: 50vw;
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
 }
 
 .preview {
   background: white;
   box-shadow: 0 0 5px rgba(0,0,0,.5);
   z-index: 1;
+  left: 50%;
+  right: 0;
 }
 
 .ace-editor,
@@ -39,6 +34,12 @@ body {
   bottom: 0;
   left: 0;
   -webkit-transition: opacity 0.2s ease-out-in;
+  -moz-transition: opacity 0.2s ease-out-in;
+  -o-transition: opacity 0.2s ease-out-in;
+  -ms-transition: opacity 0.2s ease-out-in;
+  transition: opacity 0.2s ease-out-in;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
   opacity: 0;
 }
 .preview iframe.active {
