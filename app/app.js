@@ -2,5 +2,7 @@
 // Edit.
 // ====================================
 
-angular.module('edit', ['pane', 'preview', 'save'])
+angular.module('edit', ['source', 'preview', 'save'])
 .run(function () {});
+
+var PaneController = function ($scope) {};

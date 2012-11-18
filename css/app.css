@@ -3,7 +3,7 @@ body {
   background: black;
 }
 
-.pane,
+.source,
 .preview {
   position: absolute;
   top: 0;

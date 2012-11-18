@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/app.css">
 
-<div class="container">
-  <div class="pane" ng-controller="PaneController">
+<div class="container" ng-controller="PaneController">
+  <div class="source" ng-controller="SourceController">
     <ace mode="{{mode}}" ng-model="source" ng-change="change()"></ace>
   </div>
   <div class="preview" ng-controller="PreviewController"></div>
@@ -20,6 +20,6 @@
 <script src="app/module/util.js"></script>
 <script src="app/module/pubsub.js"></script>
 <script src="app/module/save.js"></script>
-<script src="app/module/pane.js"></script>
+<script src="app/module/source.js"></script>
 <script src="app/module/preview.js"></script>
 <script src="app/app.js"></script>
