@@ -2,5 +2,5 @@
 // Edit.
 // ====================================
 
-angular.module('edit', ['util', 'pubsub', 'pane', 'preview', 'save'])
+angular.module('edit', ['pane', 'preview', 'save'])
 .run(function () {});
