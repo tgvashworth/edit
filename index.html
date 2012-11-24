@@ -5,11 +5,15 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/webfonts/ss-standard.css">
 
-<div class="container">
-  <div class="source" ng-controller="SourceController">
-    <ace mode="{{mode}}" ng-model="source" ng-change="change()"></ace>
+<div class="source" ng-controller="SourceController">
+  <ace mode="{{mode}}" ng-model="source" ng-change="change()"></ace>
+</div>
+<div class="preview" ng-controller="PreviewController"></div>
+<div class="action" ng-controller="ActionController" ng-init="open = false">
+  <div class="action-box" ng-show="open">
+    <input type="text" ng-change="change()" ng-model="sketch_name" placeholder="untitled-sketch">
   </div>
-  <div class="preview" ng-controller="PreviewController"></div>
+  <a class="action-open ss-icon" ng-click="open = !open">edit</a>
 </div>
 
 <script>Element.prototype.prependChild = function(child) { this.insertBefore(child, this.firstChild); };</script>
