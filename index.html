@@ -5,23 +5,28 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/webfonts/ss-standard.css">
 
-<div class="source" ng-controller="SourceController">
-  <ace mode="{{mode}}" ng-model="source" ng-change="change()"></ace>
-</div>
-<div class="preview" ng-controller="PreviewController"></div>
-<div class="action" ng-controller="ActionController" ng-init="open = false">
-  <div class="action-box" ng-show="open">
-    <input type="text" ng-change="change()" ng-model="sketch_name" placeholder="untitled-sketch">
+<div class="container" ng-controller="AppController" ng-cloak>
+  <div class="info-container">
+    <input type="text" ng-model="sketch_name" placeholder="example" has-focus="exposed" key-esc="toggle()">
   </div>
-  <a class="action-open ss-icon" ng-click="open = !open">edit</a>
+  <div class="pane-container exposed-{{exposed}}">
+    <div class="source" ng-controller="SourceController">
+      <ace mode="mode" source="source" on-change="change()" on-esc="toggle()" has-focus="!exposed"></ace>
+    </div>
+    <div class="preview" ng-controller="PreviewController"></div>
+  </div>
 </div>
 
 <script>Element.prototype.prependChild = function(child) { this.insertBefore(child, this.firstChild); };</script>
+<script src="http://code.jquery.com/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="lib/ace-src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="lib/angular.js"></script>
 <script src="lib/mustache.js"></script>
+<script src="lib/mousetrap.min.js"></script>
 <!-- app -->
 <script src="app/directive/ace.js"></script>
+<script src="app/directive/keys.js"></script>
+<script src="app/directive/hasfocus.js"></script>
 <script src="app/module/util.js"></script>
 <script src="app/module/pubsub.js"></script>
 <script src="app/module/save.js"></script>

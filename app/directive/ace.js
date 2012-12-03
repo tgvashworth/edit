@@ -7,7 +7,13 @@ angular.module('ace', [])
   return {
     restrict: 'E',
     template: '<div class="ace-editor"></div>',
-    require: '?ngModel',
+    scope: {
+      onEsc: '&',
+      onChange: '&',
+      mode: '=mode',
+      source: '=source',
+      hasFocus: '='
+    },
     link: function (scope, element, attrs, ngModel) {
       if( !$window.ace ) throw new Error("ace not found.");
 
@@ -18,30 +24,52 @@ angular.module('ace', [])
       editor.getSession().setTabSize(2);
       editor.setShowPrintMargin(false);
 
+      if( attrs.onEsc ) {
+        var command = {
+          name: "escape",
+          bindKey: "Esc",
+          exec: function () {
+            scope.$apply(function () {
+              scope.onEsc();
+            });
+          }
+        };
+        editor.commands.addCommand(command);
+      }
+
+      if( attrs.hasFocus ) {
+        scope.$watch('hasFocus', function (hasFocus) {
+          if( hasFocus ) {
+            editor.focus();
+          }
+        });
+      }
+
       // Angularize
-      
+
       // Watch 'mode' and update the mode
-      attrs.$observe('mode', function (newMode) {
+      scope.$watch('mode', function (newMode) {
         editor.getSession().setMode("ace/mode/" + newMode);
       });
-      // If a model is set on the element, update it's value
-      // when Ace reports a change
-      if( ngModel ) {
-        (function () {
-          // Prevent the view from being updated again when we update it
-          var updating = false;
-          editor.getSession().on('change', function () {
-            if( scope.$$phase || updating ) { updating = false; return; }
-            scope.$apply(function () {
-              ngModel.$setViewValue(editor.getSession().getValue());
-            });
-          });
-          ngModel.$render = function() {
+
+      (function () {
+        var updating = false;
+        // If a model is set on the element, update its value
+        // when Ace reports a change
+        editor.getSession().on('change', function () {
+          if( updating ) { return (updating = false); }
+          scope.$apply(function () {
             updating = true;
-            editor.getSession().setValue(ngModel.$viewValue || '');
-          };
-        }());
-      }
+            scope.source = editor.getSession().getValue();
+            scope.onChange();
+          });
+        });
+        scope.$watch('source', function(source) {
+          if( updating ) { return (updating = false); }
+          updating = true;
+          editor.getSession().setValue(source || '');
+        });
+      }());
 
     }
   };
