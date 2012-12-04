@@ -3,7 +3,7 @@
 // ====================================
 
 angular.module('ace', [])
-.directive('ace', ['$window', function ($window) {
+.directive('ace', ['$window', '$rootScope', function ($window, $rootScope) {
   return {
     restrict: 'E',
     template: '<div class="ace-editor"></div>',
@@ -57,7 +57,7 @@ angular.module('ace', [])
         // If a model is set on the element, update its value
         // when Ace reports a change
         editor.getSession().on('change', function () {
-          if( updating ) { return (updating = false); }
+          if( $rootScope.$$phase || updating ) { return (updating = false); }
           scope.$apply(function () {
             updating = true;
             scope.source = editor.getSession().getValue();
