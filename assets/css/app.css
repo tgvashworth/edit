@@ -8,8 +8,7 @@ body {
   background: black;
 }
 
-.info-container {
-}
+.info-container {}
 
 .info-container input {
   font-size: 1.5em;
@@ -19,11 +18,11 @@ body {
   margin: 0.296em 0 0 0.667em;
   display: block;
   opacity: 0.5;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  -ms-transition: all 0.1s linear;
-  transition: all 0.1s linear;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   color: white;
 }
 
@@ -38,11 +37,11 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  -ms-transition: all 0.1s linear;
-  transition: all 0.1s linear;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .exposed-true {
