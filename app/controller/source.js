@@ -8,7 +8,9 @@ angular.module('source', ['edit-service', 'ace'])
 // controller: source
 // ====================================
 
-.controller('SourceController', function ($scope, pubsub) {
+.controller('SourceController',
+[        '$scope', 'pubsub', '$timeout',
+function ($scope,   pubsub,   $timeout) {
   $scope.timeout = null;
   $scope.mode = 'html';
   $scope.source = '';
@@ -21,9 +23,9 @@ angular.module('source', ['edit-service', 'ace'])
   // Let the system know if the source changes
   $scope.change = function () {
     if( $scope.timeout ) {
-      clearTimeout($scope.timeout);
+      $timeout.cancel($scope.timeout);
     }
-    $scope.timeout = setTimeout($scope.ready.bind(this), 200);
+    $scope.timeout = $timeout($scope.ready.bind(this), 200);
   };
 
   // Respond to requests for source code
@@ -31,11 +33,9 @@ angular.module('source', ['edit-service', 'ace'])
     pubsub.emit('source:response', $scope.source);
   });
 
-  // Update source code when we get a resonse from the save module
-  pubsub.on('load:response', function (source) {
+  // Update source code when we we're told to a load has happened
+  pubsub.on('sketch:load', function (source) {
     $scope.source = source;
     $scope.change();
   });
-
-  pubsub.emit('load:request');
-});
+}]);

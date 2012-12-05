@@ -5,11 +5,21 @@
 angular.module('edit-service', [])
 
 // ====================================
-// service: save
+// service: sketch
 // ====================================
 
-.factory('save', [function () {
-  
+.factory('sketch', [function () {
+  var me = {
+    prefix: 'edit:sketch:',
+    load: function (sketch) {
+      return localStorage.getItem(me.prefix + (sketch || 'temp')) || '';
+    },
+    save: function (sketch, source) {
+      return localStorage.setItem(me.prefix + (sketch || 'temp'), source);
+    }
+  };
+
+  return me;
 }])
 
 // ====================================
