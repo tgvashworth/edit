@@ -3,8 +3,12 @@
 // ====================================
 
 angular.module('save', ['pubsub'])
-.run(['pubsub', function (pubsub) {
+.run(['pubsub', '$location', function (pubsub, $location) {
   var sketch_name = 'temp';
+
+  pubsub.on('sketch:name:change', function (new_name) {
+    sketch_name = new_name;
+  });
 
   // Intercept source responses
   pubsub.on('source:change', function (source) {
