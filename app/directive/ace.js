@@ -1,8 +1,14 @@
 // ====================================
-// Ace
+// ace
 // ====================================
 
 angular.module('ace', [])
+
+// ====================================
+// directive: ace
+// Manages an instance of the ace editor. Use the <ace></ace> element!
+// ====================================
+
 .directive('ace', ['$window', '$rootScope', function ($window, $rootScope) {
   return {
     restrict: 'E',
@@ -23,6 +29,8 @@ angular.module('ace', [])
       editor.getSession().setUseSoftTabs(true);
       editor.getSession().setTabSize(2);
       editor.setShowPrintMargin(false);
+
+      // Listen for some events
 
       if( attrs.onEsc ) {
         var command = {

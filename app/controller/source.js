@@ -1,8 +1,13 @@
 // ====================================
-// Pane
+// source
 // ====================================
 
-angular.module('source', ['util', 'pubsub', 'ace'])
+angular.module('source', ['edit-service', 'ace'])
+
+// ====================================
+// controller: source
+// ====================================
+
 .controller('SourceController', function ($scope, pubsub) {
   $scope.timeout = null;
   $scope.mode = 'html';
@@ -27,12 +32,10 @@ angular.module('source', ['util', 'pubsub', 'ace'])
   });
 
   // Update source code when we get a resonse from the save module
-  pubsub.on('save:response', function (source) {
+  pubsub.on('load:response', function (source) {
     $scope.source = source;
     $scope.change();
   });
 
-  // Ask for source from the save module
-  pubsub.emit('save:request');
-
+  pubsub.emit('load:request');
 });

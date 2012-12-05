@@ -1,9 +1,14 @@
 // ====================================
-// Preview
+// preview
 // ====================================
 
-angular.module('preview', ['util', 'pubsub'])
-.controller('PreviewController', function ($scope, pubsub) {
+angular.module('preview', ['edit-service'])
+
+// ====================================
+// controller: preview
+// ====================================
+
+.controller('PreviewController', ['$scope', 'pubsub', function ($scope, pubsub) {
   $scope.root = document.querySelector('.preview');
 
   // Listen out for updated source, and prepare a fresh frame
@@ -26,7 +31,6 @@ angular.module('preview', ['util', 'pubsub'])
       fresh.document.write(source);
       fresh.document.close();
       pubsub.emit('preview:fresh:done');
-
     } catch(e) {
       console.log(e);
     }
@@ -48,4 +52,4 @@ angular.module('preview', ['util', 'pubsub'])
     $scope.stale.elem.classList.remove('active');
     setTimeout($scope.root.removeChild.bind($scope.root, $scope.stale.elem), 200);
   });
-});
+}]);

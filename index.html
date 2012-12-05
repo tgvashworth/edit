@@ -1,35 +1,46 @@
 <!doctype html>
-<html ng-app="edit">
-<title>edit.</title>
+<html ng-app="edit" ng-controller="AppController" ng-cloak>
+<title>edit: {{sketch}}</title>
 <link rel="stylesheet" href="assets/css/normalize.css">
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="stylesheet" href="assets/webfonts/ss-standard.css">
 
-<div class="container" ng-controller="AppController" ng-cloak>
+<div class="container">
   <div class="info-container">
-    <input type="text" ng-model="sketch_name" placeholder="example" has-focus="exposed" key-esc="toggle()">
+    <input type="text"
+           ng-model="sketch"
+           placeholder="example"
+           has-focus="exposed"
+           key-esc="toggle()">
   </div>
   <div class="pane-container exposed-{{exposed}}">
-    <div class="source" ng-controller="SourceController">
-      <ace mode="mode" source="source" on-change="change()" on-esc="toggle()" has-focus="!exposed"></ace>
+    <div class="source"
+         ng-controller="SourceController">
+      <ace mode="mode"
+           source="source"
+           on-change="change()"
+           on-esc="toggle()"
+           has-focus="!exposed"></ace>
     </div>
-    <div class="preview" ng-controller="PreviewController"></div>
+    <div class="preview"
+         ng-controller="PreviewController"></div>
   </div>
 </div>
 
 <script>Element.prototype.prependChild = function(child) { this.insertBefore(child, this.firstChild); };</script>
+<!-- jquery, to boost angular's DOM cred -->
 <script src="http://code.jquery.com/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- ace for editor loveliness -->
 <script src="lib/ace-src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<!-- angular, duh -->
 <script src="lib/angular.js"></script>
-<script src="lib/mustache.js"></script>
+<!-- mousetrap, for key-binding goodness -->
 <script src="lib/mousetrap.min.js"></script>
-<!-- app -->
+<!-- edit, the app -->
 <script src="app/directive/ace.js"></script>
-<script src="app/directive/keys.js"></script>
-<script src="app/directive/hasfocus.js"></script>
-<script src="app/module/util.js"></script>
-<script src="app/module/pubsub.js"></script>
-<script src="app/module/save.js"></script>
-<script src="app/module/source.js"></script>
-<script src="app/module/preview.js"></script>
-<script src="app/app.js"></script>
+<script src="app/directive/edit-directive.js"></script>
+<script src="app/service/edit-service.js"></script>
+<script src="app/filter/edit-filter.js"></script>
+<script src="app/controller/source.js"></script>
+<script src="app/controller/preview.js"></script>
+<script src="app/controller/app.js"></script>
