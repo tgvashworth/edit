@@ -12,7 +12,7 @@ angular.module('edit-filter', [])
 .filter('cleanup', function () {
   return function (str) {
     return (str || '').toLowerCase()
-              .replace(/\s+/ig, '-')
+              .replace(/[\s\-]+/ig, '-')
               .replace(/[^a-z\-]/ig, '');
   };
 });
