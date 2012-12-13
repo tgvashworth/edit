@@ -40,6 +40,7 @@ function ($scope,   $location,   $filter,   $timeout,   pubsub,   sketch) {
 
   $scope.update_sketch_from_path = function (path) {
     $scope.sketch = $filter('cleanup')(path);
+    $scope.is_saving = ($scope.sketch !== '');
     if( $scope.disable_load ) { return ($scope.disable_load = false); }
     // Request that the sketch module load a sketch
     pubsub.emit('sketch:load', sketch.load($scope.sketch));

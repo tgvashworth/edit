@@ -15,7 +15,8 @@ angular.module('edit-service', [])
       return localStorage.getItem(me.prefix + (sketch || 'temp')) || '';
     },
     save: function (sketch, source) {
-      return localStorage.setItem(me.prefix + (sketch || 'temp'), source);
+      if( sketch === '' ) return;
+      return localStorage.setItem(me.prefix + (sketch || 'temp'), (source || ''));
     }
   };
 
