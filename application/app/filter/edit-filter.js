@@ -11,8 +11,12 @@ angular.module('edit-filter', [])
 
 .filter('cleanup', function () {
   return function (str) {
-    return (str || '').toLowerCase()
-              .replace(/[\s\-]+/ig, '-')
-              .replace(/[^a-z\-]/ig, '');
+    try {
+      return (str || '').toLowerCase()
+                .replace(/[\s\-]+/ig, '-')
+                .replace(/[^a-z0-9\-]/ig, '');
+    } catch (e) {
+      return '';
+    }
   };
 });
