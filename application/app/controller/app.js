@@ -6,6 +6,16 @@ angular.module('edit',
 ['edit-directive', 'edit-service', 'edit-filter', 'source', 'preview'])
 
 // ====================================
+// config
+// ====================================
+
+.config(
+[        '$locationProvider',
+function ($locationProvider) {
+  $locationProvider.html5Mode(true);
+}])
+
+// ====================================
 // controller: app
 // ====================================
 
