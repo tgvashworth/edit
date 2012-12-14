@@ -6,7 +6,7 @@ angular.module('edit-filter', [])
 
 // ====================================
 // filter: cleanup
-// Strips everything but lowercase letters and '-', converting ' ' to '-'
+// Strips everything but lowercase letters, numbers and '-', converting ' ' to '-'
 // ====================================
 
 .filter('cleanup', function () {
