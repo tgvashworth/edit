@@ -3,5 +3,8 @@
   "author": {
     "name": "Tom Ashworth"
   },
-  "version": "0.0.3"
+  "version": "0.0.3",
+  "dependencies": {
+    "express": "~3.0.4"
+  }
 }
