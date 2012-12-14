@@ -1,6 +1,6 @@
 # edit
 
-Code sketchpad. [Try it out.](http://phuu.github.com/edit)
+Code sketchpad.
 
 ## Getting started
 
