@@ -16,6 +16,8 @@ angular.module('ace', [])
     scope: {
       onEsc: '&',
       onChange: '&',
+      onDragEnter: '&',
+      onDragLeave: '&',
       mode: '=mode',
       source: '=source',
       hasFocus: '='
@@ -50,6 +52,22 @@ angular.module('ace', [])
           if( hasFocus ) {
             editor.focus();
           }
+        });
+      }
+
+      if( attrs.onDragEnter ) {
+        element.on('dragenter', function (event) {
+          scope.$apply(function () {
+            scope.onDragEnter({$event: event});
+          });
+        });
+      }
+
+      if( attrs.onDragLeave ) {
+        element.on('dragleave', function (event) {
+          scope.$apply(function () {
+            scope.onDragLeave({$event: event});
+          });
         });
       }
 

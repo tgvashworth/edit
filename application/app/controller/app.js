@@ -68,4 +68,10 @@ function ($scope,   $location,   $filter,   $timeout,   pubsub,   sketch) {
   $scope.toggle = function () {
     $scope.exposed = !$scope.exposed;
   };
+
+  // Drag
+  $scope.drag_over = false;
+  $scope.drag = function () {
+    $scope.drag_over = !$scope.drag_over;
+  };
 }]);

@@ -7,6 +7,7 @@
 <div class="container">
   <div class="info-container">
     <input type="text"
+           ng-show="exposed"
            ng-model="sketch"
            ng-change="update_sketch()"
            placeholder="example"
@@ -14,12 +15,14 @@
            key-esc="toggle()">
   </div>
   <div class="pane-container exposed-{{exposed}}">
-    <div class="source saving-{{is_saving}}"
+    <div class="source saving-{{is_saving}} drag-{{drag_over}}"
          ng-controller="SourceController">
       <ace mode="mode"
            source="source"
            on-change="change()"
            on-esc="toggle()"
+           on-drag-enter="drag()"
+           on-drag-leave="drag()"
            has-focus="!exposed"></ace>
     </div>
     <div class="preview"
