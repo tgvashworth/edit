@@ -95,5 +95,5 @@ body {
   opacity: 0;
 }
 .preview iframe.active {
-  opacity: 0.9;
+  opacity: 1;
 }
