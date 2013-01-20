@@ -41,4 +41,22 @@ angular.module('edit-directive', [])
       });
     }
   };
+}])
+
+// ====================================
+// directive: onDragEnter
+// handles dragenter event
+// ====================================
+
+.directive('onDragEnter', ['$parse', function ($parse) {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      element.on('dragenter', function (event) {
+        scope.$apply(function () {
+          $parse(attrs.onDragEnter)(scope, {$event: event});
+        });
+      });
+    }
+  };
 }]);

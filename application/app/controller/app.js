@@ -65,13 +65,19 @@ function ($scope,   $location,   $filter,   $timeout,   pubsub,   sketch) {
 
   // Manage opening & closing the info bar
   $scope.exposed = false;
-  $scope.toggle = function () {
+  $scope.toggle = function ($event) {
     $scope.exposed = !$scope.exposed;
   };
 
   // Drag
   $scope.drag_over = false;
-  $scope.drag = function () {
+  $scope.drag = function ($event) {
     $scope.drag_over = !$scope.drag_over;
+  };
+
+  // Drop
+  $scope.drop = function ($event) {
+    $event.preventDefault();
+    $scope.drag_over = false;
   };
 }]);

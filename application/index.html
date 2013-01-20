@@ -21,8 +21,9 @@
            source="source"
            on-change="change()"
            on-esc="toggle()"
-           on-drag-enter="drag()"
-           on-drag-leave="drag()"
+           on-drag-enter="drag($event)"
+           on-drag-leave="drag($event)"
+           on-drop="drop($event)"
            has-focus="!exposed"></ace>
     </div>
     <div class="preview"

@@ -18,6 +18,7 @@ angular.module('ace', [])
       onChange: '&',
       onDragEnter: '&',
       onDragLeave: '&',
+      onDrop: '&',
       mode: '=mode',
       source: '=source',
       hasFocus: '='
@@ -58,7 +59,7 @@ angular.module('ace', [])
       if( attrs.onDragEnter ) {
         element.on('dragenter', function (event) {
           scope.$apply(function () {
-            scope.onDragEnter({$event: event});
+            scope.onDragEnter({$event: event.originalEvent || event});
           });
         });
       }
@@ -66,7 +67,21 @@ angular.module('ace', [])
       if( attrs.onDragLeave ) {
         element.on('dragleave', function (event) {
           scope.$apply(function () {
-            scope.onDragLeave({$event: event});
+            scope.onDragLeave({$event: event.originalEvent || event});
+          });
+        });
+
+        element.on('drop', function (event) {
+          scope.$apply(function () {
+            [].forEach.call(event.originalEvent.dataTransfer.files, function (file) {
+              var reader = new FileReader();
+              reader.onload = function (progress_event) {
+                editor.getSession().setValue(progress_event.target.result);
+              };
+              reader.readAsText(file);
+            });
+
+            scope.onDrop({$event: event.originalEvent || event});
           });
         });
       }
