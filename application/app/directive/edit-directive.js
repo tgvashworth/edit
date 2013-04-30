@@ -59,4 +59,58 @@ angular.module('edit-directive', [])
       });
     }
   };
-}]);
+}])
+
+// ====================================
+// directive: draggable
+// handles click & drag events for splitters
+// relies on jQuery
+// ====================================
+
+.directive('draggable', ['$parse', function ($parse) {
+  return {
+    restrict: 'A',
+    scope: {
+      'x': '='
+    },
+    link: function (scope, element, attrs) {
+      var $this = element,
+          drag = { active: false };
+
+      var update = function (e) {
+        if (!drag.active) return;
+
+        scope.$apply(function () {
+          scope.x = (e.pageX / document.width) * 100;
+        });
+      };
+
+      var end = function (e) {
+        drag.active = false;
+        $this
+          .css({
+            left: (e.pageX / document.width) * 100 + '%',
+            right: 'auto',
+            width: '1%'
+          });
+      };
+
+      $this
+        .on('mousedown', function (e) {
+          if (drag.active) return;
+          e.preventDefault();
+          drag.active = true;
+          $this
+            .css({
+              left: 0,
+              right: 0,
+              width: 'auto'
+            });
+        })
+        .on('mousemove', update)
+        .on('mouseup', end);
+    }
+  };
+}])
+
+;

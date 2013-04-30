@@ -16,7 +16,8 @@
   </div>
   <div class="pane-container exposed-{{exposed}}">
     <div class="source saving-{{is_saving}} drag-{{drag_over}}"
-         ng-controller="SourceController">
+         ng-controller="SourceController"
+         ng-style="style.source(split)">
       <ace mode="mode"
            source="source"
            on-change="change()"
@@ -27,8 +28,10 @@
            has-focus="!exposed"></ace>
     </div>
     <div class="preview"
-         ng-controller="PreviewController"></div>
+         ng-controller="PreviewController"
+         ng-style="style.preview(split)"></div>
   </div>
+  <div class="splitter" draggable x="split"></div>
 </div>
 
 <script>Element.prototype.prependChild = function(child) { this.insertBefore(child, this.firstChild); };</script>

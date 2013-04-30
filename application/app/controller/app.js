@@ -80,4 +80,17 @@ function ($scope,   $location,   $filter,   $timeout,   pubsub,   sketch) {
     $event.preventDefault();
     $scope.drag_over = false;
   };
+
+  $scope.style = {
+    source: function (split) {
+      return {
+        right: $filter('bound')(100 - parseFloat(split), 90, 10) + '%'
+      };
+    },
+    preview: function (split) {
+      return {
+        left: $filter('bound')(split, 90, 10) + '%'
+      };
+    }
+  };
 }]);

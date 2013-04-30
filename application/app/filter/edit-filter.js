@@ -19,4 +19,17 @@ angular.module('edit-filter', [])
       return '';
     }
   };
-});
+})
+
+// ====================================
+// filter: bound
+// ====================================
+
+.filter('bound', function () {
+  return function (str, max, min) {
+    var val = parseFloat(str);
+    return Math.max(Math.min(max, val), min);
+  };
+})
+
+;
